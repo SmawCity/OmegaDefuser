@@ -16,6 +16,7 @@ const tileicon = {
 	"8": preload("res://tiles/eight.png"),
 	"mine": preload("res://tiles/mine.png"),
 	"minehit": preload("res://tiles/minehit.png"),
+	"omega": preload("res://tiles/omega_mine.png")
 }
 
 @export var width = 10
@@ -35,7 +36,7 @@ func _ready():
 	tilecount = width * height
 	
 	if mines > tilecount - 10:
-		push_error("Mine count is too high!")
+		push_error("Reduce the number of mines.")
 		mines = tilecount - 10
 	
 	tiles_left = tilecount - mines
@@ -98,7 +99,7 @@ func tile_chord(id):
 	var flag_count = 0
 	for xd in 3:
 		for yd in 3:
-			if yd == 1 and xd == 1: continue # We know we are not a flag
+			if yd == 1 and xd == 1: continue 
 			var x = xd-1 + tile.tile_position.x # -1, 0, 1
 			var y = yd-1 + tile.tile_position.y
 			if x < 0 or x > width-1: continue
@@ -219,6 +220,3 @@ func clear_bombs(tile):
 		# Remove ID from array when mine chosen so it cannot get chosen again
 		tile_array.remove_at(rand_idx) # Can be slow, but it is better than a while loop
 		mine_ids.push_back(tile_id)
-
-
-

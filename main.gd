@@ -1,6 +1,6 @@
 extends Control
 
-const GridScn = preload("res://msgrid.tscn")
+const GridScn = preload("res://Grid/msgrid.tscn")
 
 var current_grid
 
@@ -50,7 +50,9 @@ func _on_new_game_pressed():
 func update_text_mine_ratio():
 	$WidthLbl.text = "Width: "+str(width)
 	$HeightLbl.text = "Height: "+str(height)
+	@warning_ignore("integer_division")
 	var temp_mines = clamp(mines, width * height / 10, width * height - 10)
+	@warning_ignore("integer_division")
 	$MinesLbl/Mines.min_value = width * height / 10
 	$MinesLbl/Mines.max_value = width * height - 10
 	mines = temp_mines

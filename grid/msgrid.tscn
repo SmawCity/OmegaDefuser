@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b56hg0qdd30f5"]
 
-[ext_resource type="Script" path="res://msgrid.gd" id="1_t4qn2"]
+[ext_resource type="Script" path="res://grid/msgrid.gd" id="1_p2w84"]
 
 [node name="MSGrid" type="GridContainer"]
 anchors_preset = 8
@@ -16,4 +16,4 @@ mouse_filter = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 3
-script = ExtResource("1_t4qn2")
+script = ExtResource("1_p2w84")

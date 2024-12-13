@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv0ll232k50v2"
-path="res://.godot/imported/flag.png-5fbc89df80131ab76083562868bee599.ctex"
+uid="uid://c4d0i6rik3jw2"
+path="res://.godot/imported/omega_mine.png-10bf891aa7c0967993455acec0293a8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles/flag.png"
-dest_files=["res://.godot/imported/flag.png-5fbc89df80131ab76083562868bee599.ctex"]
+source_file="res://tiles/omega_mine.png"
+dest_files=["res://.godot/imported/omega_mine.png-10bf891aa7c0967993455acec0293a8f.ctex"]
 
 [params]
 
