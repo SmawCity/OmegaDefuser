@@ -11,9 +11,16 @@ var mines = 10
 var starting_time = 0
 var frozen_time = 0
 
+var time_label = Label
+var timer = Timer
+
 func _ready():
 	new_game()
-
+	time_label = $TimerLbl
+	timer = $Timer
+	
+	timer.start()
+	
 func new_game():
 	$GameStat.hide()
 	if current_grid:
@@ -30,6 +37,8 @@ func new_game():
 	frozen_time = 0
 
 func _process(_delta):
+	update_label_text()
+	
 	if starting_time:
 		var minutes
 		var seconds
@@ -43,6 +52,8 @@ func _process(_delta):
 		$Stopwatch.text = ("%02d" % minutes)+":"+("%02d" % seconds)+"."+("%03d" % round(fmod(seconds, 1)*1000))
 	else:
 		$Stopwatch.text = "00:00.000"
+		
+	
 
 func _on_new_game_pressed():
 	new_game()
@@ -88,3 +99,6 @@ func _on_expert_pressed():
 	$HeightLbl/Height.value = 16
 	$MinesLbl/Mines.value = 99
 	update_text_mine_ratio()
+
+func update_label_text():
+	time_label.text = str(ceil(timer.time_left))

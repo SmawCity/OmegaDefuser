@@ -51,19 +51,26 @@ func _ready():
 		add_child(tile)
 	
 	for _n in mines:
-		# Choose random index from array
 		var rand_idx = randi_range(0,tile_array.size()-1)
 		var tile_id = tile_array[rand_idx]
 		var target = get_child(tile_id)
 		target.mine = true
-		# Remove ID from array when mine chosen so it cannot get chosen again
-		tile_array.remove_at(rand_idx) # Can be slow, but it is better than a while loop
+		tile_array.remove_at(rand_idx) 
 		mine_ids.push_back(tile_id)
+	
+	var omega_index = randi_range(0, mine_ids.size() - 1)
+	var omega_tile_id = mine_ids[omega_index]
+	var omega_tile = get_child(omega_tile_id)
+	
+	#omega_tile.mine = false
+	omega_tile.omega = true
+	omega_tile.texture_normal = tileicon["omega"]
+	# mine_ids.erase(omega_tile_id)
 
 var selected_tile : TextureButton
 
 func tile_down(id):
-	if game_status: return
+	if game_status: return # If game hasn't started, return
 	var tile = get_child(id)
 	if !tile.tilehidden: return
 	tile.texture_normal = tileicon["empty"]
@@ -75,9 +82,9 @@ func tile_up(id):
 	tile.texture_normal = tileicon["hidden"]
 
 func tile_pressed(id):
-	if game_status: return
+	if game_status: return 
 	var tile = get_child(id)
-	if tile.flag: return
+	if tile.flag: return 
 	if !tile.tilehidden: return
 	var result = reveal(tile)
 	if result:
@@ -100,7 +107,7 @@ func tile_chord(id):
 	for xd in 3:
 		for yd in 3:
 			if yd == 1 and xd == 1: continue 
-			var x = xd-1 + tile.tile_position.x # -1, 0, 1
+			var x = xd-1 + tile.tile_position.x
 			var y = yd-1 + tile.tile_position.y
 			if x < 0 or x > width-1: continue
 			if y < 0 or y > height-1: continue
@@ -112,7 +119,7 @@ func tile_chord(id):
 		for xd in 3:
 			for yd in 3:
 				if yd == 1 and xd == 1: continue
-				var x = xd-1 + tile.tile_position.x # -1, 0, 1
+				var x = xd-1 + tile.tile_position.x 
 				var y = yd-1 + tile.tile_position.y
 				if x < 0 or x > width-1: continue
 				if y < 0 or y > height-1: continue
@@ -130,10 +137,12 @@ func reveal(tile):
 	if tile.flag: return
 	tile.mouse_default_cursor_shape = CURSOR_ARROW
 	
+	# Ensure the first click isn't a bomb
 	if first_click:
 		clear_bombs(tile)
 		get_parent().starting_time = Time.get_ticks_msec()
-	
+		
+				
 	tiles_left -= 1
 	
 	tile.tilehidden = false
@@ -148,10 +157,11 @@ func reveal(tile):
 				get_child(n).texture_normal = tileicon["mine"]
 			return LOSS
 		
-		for xd in 3:
+		# Check adjacent cells for mines
+		for xd in 3: 
 			for yd in 3:
-				if yd == 1 and xd == 1: continue # We know we are not a bomb
-				var x = xd-1 + tile.tile_position.x # -1, 0, 1
+				if yd == 1 and xd == 1: continue 
+				var x = xd-1 + tile.tile_position.x 
 				var y = yd-1 + tile.tile_position.y
 				if x < 0 or x > width-1: continue
 				if y < 0 or y > height-1: continue
@@ -168,8 +178,8 @@ func reveal(tile):
 		tile.texture_normal = tileicon["empty"]
 		for xd in 3:
 			for yd in 3:
-				if yd == 1 and xd == 1: continue # No infinite looping!
-				var x = xd-1 + tile.tile_position.x # -1, 0, 1
+				if yd == 1 and xd == 1: continue 
+				var x = xd-1 + tile.tile_position.x
 				var y = yd-1 + tile.tile_position.y
 				if x < 0 or x > width-1: continue
 				if y < 0 or y > height-1: continue
@@ -187,9 +197,9 @@ func game_over(condition):
 	game_status = condition
 	for n in tilecount: get_child(n).mouse_default_cursor_shape = CURSOR_ARROW
 	if condition == LOSS:
-		get_parent().get_node("GameStat").text = "Lost!"
+		get_parent().get_node("GameStat").text = "You lost."
 	elif condition == VICTORY:
-		get_parent().get_node("GameStat").text = "Won!"
+		get_parent().get_node("GameStat").text = "You won!"
 	get_parent().get_node("GameStat").show()
 
 func vector_to_id(vector : Vector2i):
@@ -197,9 +207,11 @@ func vector_to_id(vector : Vector2i):
 
 func clear_bombs(tile):
 	var mine_count = 0
+	
+	# Erase bombs to create a playable starting area
 	for xd in 3:
 		for yd in 3:
-			var x = xd-1 + tile.tile_position.x # -1, 0, 1
+			var x = xd-1 + tile.tile_position.x 
 			var y = yd-1 + tile.tile_position.y
 			if x < 0 or x > width-1: continue
 			if y < 0 or y > height-1: continue
@@ -211,12 +223,12 @@ func clear_bombs(tile):
 				target.mine = false
 				mine_count += 1
 	
-	for n in mine_count: # Replace all of the mines we erased
-		# Choose random index from array
+	# Replace all of the mines that were erased
+	for n in mine_count: 
 		var rand_idx = randi_range(0,tile_array.size()-1)
 		var tile_id = tile_array[rand_idx]
 		var target = get_child(tile_id)
+		
 		target.mine = true
-		# Remove ID from array when mine chosen so it cannot get chosen again
-		tile_array.remove_at(rand_idx) # Can be slow, but it is better than a while loop
+		tile_array.remove_at(rand_idx) 
 		mine_ids.push_back(tile_id)

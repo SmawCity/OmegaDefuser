@@ -10,6 +10,7 @@ var id = 0
 var tilehidden = true
 var flag = false
 var mine = false
+var omega = false
 var tile_position : Vector2i
 var near = 0
 

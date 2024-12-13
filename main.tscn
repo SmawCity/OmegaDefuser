@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://brlmesi1ta5vm"]
+[gd_scene load_steps=8 format=3 uid="uid://brlmesi1ta5vm"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ldx4a"]
 
@@ -17,6 +17,10 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vxkdn"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3cqnp"]
+font_size = 30
+font_color = Color(1, 0, 0, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -186,6 +190,19 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "0:00.00"
 label_settings = SubResource("LabelSettings_vxkdn")
+
+[node name="TimerLbl" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1082.0
+offset_right = 1166.0
+offset_bottom = 42.0
+text = "Timer"
+label_settings = SubResource("LabelSettings_3cqnp")
+horizontal_alignment = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
 
 [connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="value_changed" from="WidthLbl/Width" to="." method="_on_width_value_changed"]
