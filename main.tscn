@@ -128,37 +128,38 @@ max_value = 90.0
 value = 10.0
 tick_count = 1
 
-[node name="Beginner" type="Button" parent="."]
+[node name="Easy" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -95.0
-offset_right = 78.0
+offset_right = 73.0
 offset_bottom = -64.0
 grow_vertical = 0
-text = "Beginner"
+text = "Easy
+"
 
-[node name="Intermediate" type="Button" parent="."]
+[node name="Medium" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -63.0
-offset_right = 110.0
+offset_right = 73.0
 offset_bottom = -32.0
 grow_vertical = 0
-text = "Intermediate"
+text = "Medium"
 
-[node name="Expert" type="Button" parent="."]
+[node name="Hard" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -31.0
-offset_right = 59.0
+offset_right = 73.0
 grow_vertical = 0
-text = "Expert"
+text = "Hard"
 
 [node name="GameStat" type="Label" parent="."]
 layout_mode = 1
@@ -208,6 +209,6 @@ one_shot = true
 [connection signal="value_changed" from="WidthLbl/Width" to="." method="_on_width_value_changed"]
 [connection signal="value_changed" from="HeightLbl/Height" to="." method="_on_height_value_changed"]
 [connection signal="value_changed" from="MinesLbl/Mines" to="." method="_on_mines_value_changed"]
-[connection signal="pressed" from="Beginner" to="." method="_on_beginner_pressed"]
-[connection signal="pressed" from="Intermediate" to="." method="_on_intermediate_pressed"]
-[connection signal="pressed" from="Expert" to="." method="_on_expert_pressed"]
+[connection signal="pressed" from="Easy" to="." method="_on_beginner_pressed"]
+[connection signal="pressed" from="Medium" to="." method="_on_intermediate_pressed"]
+[connection signal="pressed" from="Hard" to="." method="_on_expert_pressed"]
